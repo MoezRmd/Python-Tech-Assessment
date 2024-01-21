@@ -4,10 +4,8 @@ from application.facebookpostscrapper import FacebookPostsScraper
 router = APIRouter()
 facebook_scraper = FacebookPostsScraper()
 
-@router.get("/scrape_posts/{page_name}")  # Changed to POST
-async def scrape_facebook_posts(page_name: str):
+@router.get("/scrape_posts/")  # Changed to POST
+async def scrape_facebook_posts(request: dict):
+    page_name = request.get("page_name")
     data = facebook_scraper.scrape_data(page_name)
     return {"scraped_data": data}
-@router.get("/")
-def read_root():
-    return {"message": "Hello!"}
